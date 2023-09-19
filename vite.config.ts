@@ -62,7 +62,7 @@ export default (({ command, mode, ssrBuild }) => {
       },
       //本地地址
       host: "0.0.0.0",
-      port: 12121,
+      port: 10111,
       open: false
     }
   })

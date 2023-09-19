@@ -7,6 +7,6 @@ interface ApiResult {
 }
 
 export async function login(data: any): Promise<ApiResult> {
-    const response = await axiosInstance.post<ApiResult>("/user/login", data);
+    const response = await axiosInstance.post<ApiResult>("/admin/login", data);
     return response.data;
 }

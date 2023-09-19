@@ -1,5 +1,5 @@
 <template>
-    <el-sub-menu v-if="menu.subMenu.length > 0" :key="'/p/'+menu.authUrl" :index="menu.authUrl">
+    <el-sub-menu v-if="menu.subMenu.length > 0" :key="menu.id" :index="menu.id">
         <template #title>
             <el-icon>
                 <component :is="menu.icon" />

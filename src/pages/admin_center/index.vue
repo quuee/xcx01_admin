@@ -10,9 +10,7 @@
                         </div>
                     </template>
                     <div class="admin-detail-info-wrap">
-                        <div>
-                            修改头像
-                        </div>
+                        <avatar></avatar>
                         <ul>
                             <li class="admin-detail-info-li">
                                 用户名称
@@ -28,11 +26,11 @@
                             </li>
                             <li class="admin-detail-info-li">
                                 角色
-                                <div>超级管理员</div>
+                                <div>管理员</div>
                             </li>
                             <li class="admin-detail-info-li">
                                 部门
-                                <div>超级管理员</div>
+                                <div>管理员</div>
                             </li>
                             <li class="admin-detail-info-li">
                                 创建时间
@@ -47,14 +45,15 @@
                     <template #header>
                         <div class="card-header">
                             <span>基本资料</span>
-                            
                         </div>
                     </template>
                     <el-tabs v-model="activeTab" type="border-card">
                         <el-tab-pane label="基本资料">
                             <updateAdminInfo :adminInfo="adminInfo"></updateAdminInfo>
                         </el-tab-pane>
-                        <el-tab-pane label="修改密码">修改密码</el-tab-pane>
+                        <el-tab-pane label="修改密码">
+                            <updatePassword :adminInfo="adminInfo"></updatePassword>
+                        </el-tab-pane>
                     </el-tabs>
                 </el-card>
             </el-col>
@@ -63,8 +62,10 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/store/userStore';
-import { reactive, ref,watch } from 'vue';
+import { reactive, ref } from 'vue';
 import updateAdminInfo from '@/pages/admin_center/components/updateAdminInfo.vue'
+import updatePassword from '@/pages/admin_center/components/updatePassword.vue'
+import avatar from '@/pages/admin_center/components/avatar.vue'
 import { dateFormat } from '@/utils/dateFormat'
 import {  } from 'fs';
 

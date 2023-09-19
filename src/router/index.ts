@@ -27,15 +27,15 @@ const dynamicRoutes: RouteRecordRaw = {
     redirect: '/home',
     children: [
         {
-			path: '/home',
-			name: '首页',
-			component: () => import('@/pages/home/index.vue'),
-		},
+            path: '/home',
+            name: '首页',
+            component: () => import('@/pages/home/index.vue'),
+        },
         {
-			path: '/adminCenter',
-			name: '个人中心',
-			component: () => import('@/pages/admin_center/index.vue'),
-		},
+            path: '/adminCenter',
+            name: '个人中心',
+            component: () => import('@/pages/admin_center/index.vue'),
+        },
     ]
 }
 
@@ -62,15 +62,15 @@ router.beforeEach(async (to, from, next) => {
         } else {
             // 如果用户路由信息不存在，则重新拉取
             if (userStore.encapsulatedUserInfo.userId <= -1) {
-                try{
+                try {
                     await userStore.getUserInfoAction()
                     await userStore.getMenuListAction()
-                }catch(error){
+                } catch (error) {
                     localStorage.removeItem('token')
-					next('/login')
-					return Promise.reject(error)
+                    next('/login')
+                    return Promise.reject(error)
                 }
-                
+
                 const menuRoutes = generateRoutes(userStore.menuList)
 
                 dynamicRoutes.children?.push(...menuRoutes)
@@ -97,7 +97,7 @@ const layoutModules = import.meta.glob('/src/pages/**/*.vue')
 // 根据路径，动态获取vue组件
 const getDynamicComponent = (path: string): any => {
     // console.log(layoutModules)
-	return layoutModules[`/src/pages/${path}/index.vue`]
+    return layoutModules[`/src/pages/${path}/index.vue`]
 }
 
 // 根据菜单列表，生成路由数据
@@ -107,14 +107,33 @@ const generateRoutes = (menuList: any): RouteRecordRaw[] => {
         let path;
         let component;
         //动态生成组件
-        if (menu.subMenu && menu.subMenu.length > 0) {
-            path = '/p/' + menu.id;
-            // component = () => import('@/pages/layout/index.vue');
-        } else {
-            path = "/" + menu.authUrl;
-            component = getDynamicComponent(menu.authUrl);
+        // if (menu.subMenu && menu.subMenu.length > 0) {
+        //     path = '/p/' + menu.id;
+        //     // component = () => import('@/pages/layout/index.vue');
+        // } else {
+        //     path = "/" + menu.authUrl;
+        //     component = getDynamicComponent(menu.authUrl);
+        // }
+        switch (menu.menuType) {
+            // 菜单带页面
+            case 1:
+                path = "/" + menu.authUrl;
+                component = getDynamicComponent(menu.authUrl);
+                break;
+            // 菜单父级目录 不带页面 
+            case 2:
+                path = '/p/' + menu.id;
+                break;
+            // 按钮
+            case 3:
+                path = '/p/' + menu.id;
+                break;
+
+            default:
+                path = '/p/' + menu.id;
+                break;
         }
-        
+
         //生成路由
         const route: RouteRecordRaw = {
             path: path,
@@ -123,7 +142,7 @@ const generateRoutes = (menuList: any): RouteRecordRaw[] => {
             children: [],
             meta: {
                 title: menu.menuName,
-                icon:  menu.icon,
+                icon: menu.icon,
                 id: '' + menu.id,
                 url: menu.authUrl,
                 breadcrumb: [menu.menuName]

@@ -29,7 +29,7 @@ const defaultActiveIndex = computed(() => {
     <el-menu  class="menu-class" background-color="#2d3a4b" active-text-color="#ffd04b" text-color="#fff"
         :default-active="defaultActiveIndex"
         >
-        <MenuItem v-for="menu in menuList" :key="menu.authUrl" :menu="menu" />
+        <MenuItem v-for="menu in menuList" :key="menu.id" :menu="menu" />
     </el-menu>
 </template>
 

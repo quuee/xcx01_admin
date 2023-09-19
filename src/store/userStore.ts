@@ -1,5 +1,5 @@
 import { useMenuTreeApi } from "@/api/menuApi";
-import { useGetUserInfoApi } from "@/api/userApi";
+import { useGetAdminInfoApi } from "@/api/adminApi";
 
 import { defineStore } from "pinia";
 
@@ -26,7 +26,7 @@ export const useUserStore = defineStore("userStore", {
     },
     actions: {
         async getUserInfoAction() {
-            let [result, err] = await useGetUserInfoApi().then((result) => [result, null]).catch((err) => [null, err])
+            let [result, err] = await useGetAdminInfoApi().then((result) => [result, null]).catch((err) => [null, err])
             this.userInfo = result.data
             console.log("getUserInfoAction", this.userInfo)
         },

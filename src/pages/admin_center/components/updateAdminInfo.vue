@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAddOrUpdateApi } from '@/api/userApi';
+import { useAddOrUpdateApi } from '@/api/adminApi';
 import { useUserStore } from '@/store/userStore';
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
 import { reactive, onMounted, ref } from 'vue';
@@ -91,4 +91,4 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss"></style>@/api/adminApi
