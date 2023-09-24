@@ -33,7 +33,7 @@ const props = defineProps({
 })
 
 interface UpdatePasswordForm {
-    userId: number,
+    aid: number,
     oldPassword: string,
     newPassword: string,
     confirmNewPassword: string,
@@ -41,7 +41,7 @@ interface UpdatePasswordForm {
 }
 
 const udpatePasswordForm = reactive<UpdatePasswordForm>({
-    userId: -1,
+    aid: -1,
     oldPassword: "",
     newPassword: "",
     confirmNewPassword: "",
@@ -50,7 +50,7 @@ const udpatePasswordForm = reactive<UpdatePasswordForm>({
 const updatePasswordFormRef = ref<FormInstance>()
 onMounted(() => {
     console.log("onMounted props.adminInfo", props.adminInfo)
-    udpatePasswordForm.userId = props.adminInfo.userId
+    udpatePasswordForm.aid = props.adminInfo.aid
 
 })
 const rules = reactive<FormRules<UpdatePasswordForm>>({

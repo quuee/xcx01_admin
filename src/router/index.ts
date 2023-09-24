@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { useUserStore } from '../store/userStore'
-import { h } from 'vue'
 
 /** 公共路由 */
 const publicRoutes: RouteRecordRaw[] = [
@@ -44,7 +43,7 @@ const dynamicRoutes: RouteRecordRaw = {
 const whiteList = ['/login', '/404']
 
 
-export const router = createRouter({
+const router = createRouter({
     history: createWebHashHistory(),
     routes: publicRoutes
 })
@@ -61,7 +60,8 @@ router.beforeEach(async (to, from, next) => {
             next('/')
         } else {
             // 如果用户路由信息不存在，则重新拉取
-            if (userStore.encapsulatedUserInfo.userId <= -1) {
+            // console.log('userStore.userInfo.aid',userStore.userInfo.aid)
+            if (userStore.userInfo.aid <= -1 || userStore.userInfo.aid == undefined) {
                 try {
                     await userStore.getUserInfoAction()
                     await userStore.getMenuListAction()
@@ -155,4 +155,8 @@ const generateRoutes = (menuList: any): RouteRecordRaw[] => {
         routeList.push(route)
     });
     return routeList;
+}
+
+export {
+    router
 }

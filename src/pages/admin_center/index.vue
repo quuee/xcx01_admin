@@ -14,15 +14,15 @@
                         <ul>
                             <li class="admin-detail-info-li">
                                 用户名称
-                                <div>{{ adminInfo.username }}</div>
+                                <div>{{ userStore.userInfo.adminName }}</div>
                             </li>
                             <li class="admin-detail-info-li">
                                 手机号
-                                <div>{{ adminInfo.phone }}</div>
+                                <div>{{ userStore.userInfo.phone }}</div>
                             </li>
                             <li class="admin-detail-info-li">
                                 邮箱
-                                <div>{{ adminInfo.email }}</div>
+                                <div>{{ userStore.userInfo.email }}</div>
                             </li>
                             <li class="admin-detail-info-li">
                                 角色
@@ -34,7 +34,7 @@
                             </li>
                             <li class="admin-detail-info-li">
                                 创建时间
-                                <div>{{ dateFormat(adminInfo.createTime) }}</div>
+                                <div>{{ dateFormat(userStore.userInfo.createTime) }}</div>
                             </li>
                         </ul>
                     </div>
@@ -49,10 +49,10 @@
                     </template>
                     <el-tabs v-model="activeTab" type="border-card">
                         <el-tab-pane label="基本资料">
-                            <updateAdminInfo :adminInfo="adminInfo"></updateAdminInfo>
+                            <updateAdminInfo :adminInfo="userStore.userInfo"></updateAdminInfo>
                         </el-tab-pane>
                         <el-tab-pane label="修改密码">
-                            <updatePassword :adminInfo="adminInfo"></updatePassword>
+                            <updatePassword :adminInfo="userStore.userInfo"></updatePassword>
                         </el-tab-pane>
                     </el-tabs>
                 </el-card>
@@ -62,7 +62,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/store/userStore';
-import { reactive, ref } from 'vue';
+import {  ref } from 'vue';
 import updateAdminInfo from '@/pages/admin_center/components/updateAdminInfo.vue'
 import updatePassword from '@/pages/admin_center/components/updatePassword.vue'
 import avatar from '@/pages/admin_center/components/avatar.vue'
@@ -71,7 +71,7 @@ import {  } from 'fs';
 
 const activeTab = ref("基本资料")
 const userStore = useUserStore()
-const adminInfo = reactive(userStore.encapsulatedUserInfo)
+
 
 
 

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 
 import MenuItem from '@/pages/layout/menu/components/menuItem.vue'
-
-import { computed } from 'vue';
+import { PropType, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import {MenuModel} from '@/model/menuModel'
 
 const route = useRoute()
 
 
 defineProps({
     menuList: {
-        type: Array,
+        type: Array as PropType<MenuModel[]>,
         required: true
     }
 })
@@ -26,9 +26,8 @@ const defaultActiveIndex = computed(() => {
 
 </script>
 <template>
-    <el-menu  class="menu-class" background-color="#2d3a4b" active-text-color="#ffd04b" text-color="#fff"
-        :default-active="defaultActiveIndex"
-        >
+    <el-menu class="menu-class" background-color="#2d3a4b" active-text-color="#ffd04b" text-color="#fff"
+        :default-active="defaultActiveIndex">
         <MenuItem v-for="menu in menuList" :key="menu.id" :menu="menu" />
     </el-menu>
 </template>

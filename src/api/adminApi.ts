@@ -21,5 +21,5 @@ export const useAdminUserListApi = (query:any) => {
 }
 
 export const useGetAdminInfoByIdApi = (query:any) => {
-	return get('/admin/info',query)
+	return get('/admin/infoById',query)
 }

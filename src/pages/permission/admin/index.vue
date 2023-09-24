@@ -26,7 +26,7 @@ onMounted(() => {
     initAdminUserList()
 })
 
-const gridDateFormatter = (row, column, cellValue, index) => {
+const gridDateFormatter = (row:any, column:any, cellValue, index) => {
     const dateSrc = row[column.property]
     return dateFormat(dateSrc)
 }
@@ -42,7 +42,7 @@ const handleCurrentChange = (pageNo: number) => {
 
 const addOrUpdateRef = ref()
 
-const handleAddOrUpdateDialog = (id?:number)=>{
+const handleAddOrUpdateDialog = (aid?:number)=>{
     // console.log("handleAddOrUpdateDialog",id)
     // if(id > 0){
     //     userId.value = id
@@ -52,7 +52,8 @@ const handleAddOrUpdateDialog = (id?:number)=>{
     //     dialogTitle.value="新增用户"
     // }
     // dialogVisible.value = true
-    addOrUpdateRef.value.init(id)
+    console.log('handleAddOrUpdateDialog',aid)
+    addOrUpdateRef.value.init(aid)
 }
 </script>
 <template>
@@ -75,7 +76,7 @@ const handleAddOrUpdateDialog = (id?:number)=>{
         </el-row>
 
         <el-table :data="adminUserTableData" stripe style="width: 100%">
-            <el-table-column prop="username" label="用户名" width="180" />
+            <el-table-column prop="adminName" label="用户名" width="180" />
             <el-table-column prop="avatarUrl" label="头像">
                 <template #default="scope">
                     <el-image style="width: 100px;height: 100px;"
@@ -89,7 +90,7 @@ const handleAddOrUpdateDialog = (id?:number)=>{
             <el-table-column fixed="right" label="操作" width="160">
                 <template #default="scope">
                     <el-button type="primary" size="small">Detail</el-button>
-                    <el-button type="primary" size="small" @click="handleAddOrUpdateDialog(scope.row.id)">Edit</el-button>
+                    <el-button type="primary" size="small" @click="handleAddOrUpdateDialog(scope.row.aid)">Edit</el-button>
                 </template>
             </el-table-column>
         </el-table>

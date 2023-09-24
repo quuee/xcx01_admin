@@ -7,19 +7,19 @@ import { onMounted } from 'vue';
 
 const router = useRouter()
 const loginForm = reactive<LoginForm>({
-    username: '',
+    adminName: '',
     password: '',
     checked: false
 })
 
 type LoginForm = {
-    username: string,
+    adminName: string,
     password: string,
     checked: boolean
 }
 
 const rules = reactive<FormRules<LoginForm>>({
-    username: [
+    adminName: [
         { required: true, message: "请输入登录名", trigger: "blur" },
         { min: 3, max: 30, message: '长度 3 到 30', trigger: 'blur' }
 
@@ -39,7 +39,7 @@ const loginFormRef = ref<FormInstance>()
 const useLocalAccount = () => {
     // console.log(localStorage.getItem("account"), localStorage.getItem("password"))
     if (localStorage.getItem("account") && localStorage.getItem("password")) {
-        loginForm.username = localStorage.getItem("account")!
+        loginForm.adminName = localStorage.getItem("account")!
         loginForm.password = localStorage.getItem("password")!
         loginForm.checked = true
     }
@@ -55,7 +55,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     // 记住账号密码
     if (loginForm.checked) {
         // 需要加密
-        localStorage.setItem("account", loginForm.username)
+        localStorage.setItem("account", loginForm.adminName)
         localStorage.setItem("password", loginForm.password)
     } else {
         localStorage.removeItem("account")
@@ -70,8 +70,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             } else {
                 ElMessage.error(result.msg)
             }
+            if(result.statusCode==500){
+                console.log(err)
+            }
         } else {
             console.log('error submit!', fields)
+            
         }
     })
 }
@@ -84,7 +88,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         </div>
         <el-form ref="loginFormRef" :rules="rules" :model="loginForm" label-position="left" label-width="100px" status-icon>
             <el-form-item label="用户名:" prop="username">
-                <el-input v-model="loginForm.username" placeholder="请输入用户名">
+                <el-input v-model="loginForm.adminName" placeholder="请输入用户名">
                     <template #suffix>
                         <i-ep-user></i-ep-user>
                     </template>

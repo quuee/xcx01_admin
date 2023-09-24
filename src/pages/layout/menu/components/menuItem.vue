@@ -1,5 +1,5 @@
 <template>
-    <el-sub-menu v-if="menu.subMenu.length > 0" :key="menu.id" :index="menu.id">
+    <el-sub-menu v-if="menu.subMenu.length > 0" :key="menu.id" :index="menu.id + ''">
         <template #title>
             <el-icon>
                 <component :is="menu.icon" />
@@ -21,13 +21,14 @@
 </template>
 <script lang="ts" setup>
 // import { useIconStore } from '@/store/iconStore';
+import { MenuModel } from '@/model/menuModel';
 import { PropType } from 'vue'
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 defineProps({
     menu: {
-        type: Object as PropType<any>,
+        type: Object as PropType<MenuModel>,
         required: true
     }
 })

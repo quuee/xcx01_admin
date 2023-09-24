@@ -27,7 +27,7 @@ import { useChangeAvatarApi } from '@/api/adminApi';
   const headerObj = reactive({
     "Authorization": localStorage.getItem('token')
   })
-  const imageUrl = ref(userStore.encapsulatedUserInfo.avatarUrl)
+  const imageUrl = ref(userStore.userInfo.avatarUrl)
   
   
   const handleAvatarSuccess: UploadProps['onSuccess'] = (

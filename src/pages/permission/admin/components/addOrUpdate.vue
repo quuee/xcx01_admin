@@ -1,9 +1,9 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="form.userId < 0 ? '新增' : '修改'" width="30%" >
+    <el-dialog v-model="dialogVisible" :title="form.aid < 0 ? '新增' : '修改'" width="30%" >
 
         <el-form ref="formRef" v-model="form" :rules="rules" label-width="100px">
             <el-form-item label="用户名" prop="username">
-                <el-input v-model="form.username" :disabled="!(form.userId < 0)"></el-input>
+                <el-input v-model="form.adminName" :disabled="!(form.aid < 0)"></el-input>
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
@@ -30,23 +30,25 @@
 
 <script lang="ts" setup>
 import { useGetAdminInfoByIdApi } from '@/api/adminApi';
+import { ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
 
 const dialogVisible = ref(false)
 const form = reactive({
-    userId: -1,
-    username: "",
+    aid: -1,
+    adminName: "",
     password: "",
     phone: "",
     email: ""
 })
-const init = (id?:number) =>{
+const init = (aid?:number) =>{
     dialogVisible.value = true
 
-
-    if(id){
-        form.userId= id
+    console.log('init',aid)
+    if(aid != undefined && aid > 0  ){
+        form.aid = aid
         //查询 并 填充表单数据
+        getUser(aid)
     }
 }
 
@@ -68,8 +70,16 @@ const rules = reactive({
     ]
 })
 
-const getUser = async (id:number)=>{
-    let [res,err]  = await useGetAdminInfoByIdApi(id).then(res => [res,null]).catch(err=>[null,err])
+const getUser = async (aid:number)=>{
+    let [res,err]  = await useGetAdminInfoByIdApi({aid}).then(res => [res,null]).catch(err=>[null,err])
+    if(res.code == 0){
+        form.aid = res.data.aid
+        form.adminName = res.data.adminName
+        form.phone = res.data.phone
+        form.email = res.data.email
+    }else{
+        ElMessage.error(err)
+    }
     
 }
 

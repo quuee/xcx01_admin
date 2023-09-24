@@ -2,7 +2,7 @@
     <el-form ref="updateUserFormRef" :model="udpateUserForm" :rules="rules" label-width="120px" class="demo-ruleForm"
         size="default" status-icon>
         <el-form-item label="用户名" prop="name">
-            <el-input v-model="udpateUserForm.username" />
+            <el-input v-model="udpateUserForm.adminName" />
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
             <el-input v-model="udpateUserForm.phone" />
@@ -31,16 +31,16 @@ const props = defineProps({
 })
 
 interface UpdateUserForm {
-    userId: number,
-    username: string,
+    aid: number,
+    adminName: string,
     phone: string,
     email: string,
 
 }
 
 const udpateUserForm = reactive<UpdateUserForm>({
-    userId: -1,
-    username: "",
+    aid: -1,
+    adminName: "",
     phone: "",
     email: "",
 
@@ -48,13 +48,13 @@ const udpateUserForm = reactive<UpdateUserForm>({
 const updateUserFormRef = ref<FormInstance>()
 onMounted(() => {
     console.log("onMounted props.adminInfo",props.adminInfo)
-    udpateUserForm.userId = props.adminInfo.userId
-    udpateUserForm.username = props.adminInfo.username
+    udpateUserForm.aid = props.adminInfo.aid
+    udpateUserForm.adminName = props.adminInfo.adminName
     udpateUserForm.phone = props.adminInfo.phone
     udpateUserForm.email = props.adminInfo.email
 })
 const rules = reactive<FormRules<UpdateUserForm>>({
-    username: [
+    adminName: [
         { required: true, message: 'Please input Activity name', trigger: 'blur' },
         { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
     ],

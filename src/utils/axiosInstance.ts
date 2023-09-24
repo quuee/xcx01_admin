@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
-import { useRouter } from 'vue-router';
+import {router} from '@/router'
 
-const router = useRouter()
+
 // import { useUserStore } from '../store/userStore'
 // import { Message } from 'element-plus'
 
@@ -47,8 +47,8 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (response: AxiosResponse) => {
         // 对响应数据做点什么
-
         if (response.status === 200) {
+            
             switch (response.data.code) {
                 case 493:
                     router.replace({ path: "/login", replace: true })
